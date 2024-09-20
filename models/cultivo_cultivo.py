@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api 
 from odoo.exceptions import ValidationError
 
 class CultivoCultivo(models.Model):
@@ -12,9 +12,9 @@ class CultivoCultivo(models.Model):
     cultivo_id = fields.Many2one('product.product', string="Tipo de Cultivo", required=True)
     fecha_siembra = fields.Date(string="Fecha de Siembra", required=True)
     fecha_estimada_cosecha = fields.Date(string="Fecha Estimada de Cosecha")
-
-    # Relación con las etapas de cultivo (nueva estructura)
-    stage_id = fields.Many2one('cultivo.state', string="Etapa del Cultivo", required=True)
+    
+    # Estados dinámicos (relación con la tabla de estados configurables)
+    stage_id = fields.Many2one('cultivo.cultivo.state', string="Estado del Cultivo", default=lambda self: self.env.ref('palo_gordo_agro.state_nuevo').id, required=True)
 
     # Rendimientos
     rendimiento_estimado = fields.Float(string="Rendimiento Estimado (ton/ha)")
@@ -32,15 +32,15 @@ class CultivoCultivo(models.Model):
 
     def action_actualizar_estado(self):
         """
-        Actualiza el estado del cultivo al siguiente en orden.
+        Permite actualizar el estado del cultivo según su progreso.
+        Utiliza la secuencia del estado actual para avanzar al siguiente.
         """
         for record in self:
-            # Obtener el siguiente estado en función de la secuencia de etapas
-            next_stage = self.env['cultivo.state'].search([('id', '>', record.stage_id.id)], order='id asc', limit=1)
+            next_stage = self.env['cultivo.cultivo.state'].search([('sequence', '>', record.stage_id.sequence)], limit=1)
             if next_stage:
                 record.stage_id = next_stage
-            else:
-                raise ValidationError("No hay una etapa siguiente disponible.")
+            if record.stage_id.name == 'Cosechado':
+                record._calcular_rendimiento_real()
 
     def _calcular_rendimiento_real(self):
         """
@@ -48,6 +48,6 @@ class CultivoCultivo(models.Model):
         Este valor será ingresado manualmente por el usuario.
         """
         for record in self:
-            # Se puede incluir aquí lógica para calcular el rendimiento basado en la productividad
             record.rendimiento_real = record.rendimiento_estimado * 0.95  # Ejemplo simple
+
 
