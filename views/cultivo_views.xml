@@ -1,0 +1,50 @@
+<odoo>
+    <record id="view_cultivo_form" model="ir.ui.view">
+        <field name="name">cultivo.cultivo.form</field>
+        <field name="model">cultivo.cultivo</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_actualizar_estado" type="object" string="Actualizar Estado" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="campo_id"/>
+                        <field name="cultivo_id"/>
+                        <field name="fecha_siembra"/>
+                        <field name="fecha_estimada_cosecha"/>
+                        <field name="rendimiento_estimado"/>
+                        <field name="rendimiento_real" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cultivo_tree" model="ir.ui.view">
+        <field name="name">cultivo.cultivo.tree</field>
+        <field name="model">cultivo.cultivo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="campo_id"/>
+                <field name="cultivo_id"/>
+                <field name="fecha_siembra"/>
+                <field name="fecha_estimada_cosecha"/>
+                <field name="rendimiento_estimado"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Menú para gestionar los cultivos -->
+    <menuitem id="menu_cultivos_root" name="Gestión de Cultivos" parent="menu_agro_root" sequence="20"/>
+    <menuitem id="menu_cultivos" name="Cultivos" parent="menu_cultivos_root" action="action_cultivos"/>
+
+    <!-- Acción para abrir el árbol de cultivos -->
+    <record id="action_cultivos" model="ir.actions.act_window">
+        <field name="name">Cultivos</field>
+        <field name="res_model">cultivo.cultivo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

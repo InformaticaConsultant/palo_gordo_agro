@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_cultivo_kanban" model="ir.ui.view">
+        <field name="name">cultivo.cultivo.kanban</field>
+        <field name="model">cultivo.cultivo</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="stage_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <field name="stage_id" widget="kanban_state_colour"/>
+                            <div>
+                                <strong><field name="cultivo_id"/></strong>
+                            </div>
+                            <div>
+                                <small>Campo: <field name="campo_id"/></small>
+                            </div>
+                            <div>
+                                <small>Fecha Siembra: <field name="fecha_siembra"/></small>
+                            </div>
+                            <div>
+                                <small>Rendimiento Estimado: <field name="rendimiento_estimado"/></small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

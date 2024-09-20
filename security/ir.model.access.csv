@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cultivo_campo,access_cultivo_campo,model_cultivo_campo,,1,1,1,1
+access_agro_consumo_insumos,access_agro_consumo_insumos,model_agro_consumo_insumos,,1,1,1,1
+access_consumo_insumos_line,access_consumo_insumos_line,model_consumo_insumos_line,,1,1,1,1
+access_cultivo_cultivo,cultivo_cultivo,model_cultivo_cultivo,,1,1,1,1
+access_cultivo_historial,cultivo_historial,model_cultivo_historial,,1,0,0,0
+access_cultivo_state,access_cultivo_state,model_cultivo_state,,1,1,1,1

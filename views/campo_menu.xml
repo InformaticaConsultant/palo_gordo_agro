@@ -1,0 +1,42 @@
+<odoo>
+    <!-- Acción para abrir el árbol de campos de cultivo -->
+    <record id="action_campo_cultivo" model="ir.actions.act_window">
+        <field name="name">Campos de Cultivo</field>
+        <field name="res_model">cultivo.campo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Crea tu primer campo de cultivo.
+            </p>
+        </field>
+    </record>
+
+    <!-- Acción para abrir el árbol de consumo de insumos -->
+    <record id="action_consumo_insumo" model="ir.actions.act_window">
+        <field name="name">Consumo de Insumos</field>
+        <field name="res_model">agro.consumo_insumos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para abrir el árbol de cultivos -->
+    <record id="action_cultivos" model="ir.actions.act_window">
+        <field name="name">Cultivos</field>
+        <field name="res_model">cultivo.cultivo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú principal de "Agro" -->
+    <menuitem id="menu_agro_root" name="Agro" sequence="10"/>
+
+    <!-- Submenú para gestionar los campos -->
+    <menuitem id="menu_agro_campo_root" name="Gestión de Campos" parent="menu_agro_root" sequence="10"/>
+    <menuitem id="menu_agro_cultivo" name="Campos de Cultivo" parent="menu_agro_campo_root" action="action_campo_cultivo" sequence="10"/>
+
+    <!-- Submenú para gestionar los cultivos (Elimina duplicados) -->
+    <menuitem id="menu_agro_cultivo_root" name="Gestión de Cultivos" parent="menu_agro_root" sequence="20"/>
+    <menuitem id="menu_agro_cultivos" name="Cultivos" parent="menu_agro_cultivo_root" action="action_cultivos" sequence="10"/>
+
+    <!-- Submenú para gestionar el consumo de insumos -->
+    <menuitem id="menu_agro_consumo_root" name="Consumo de Insumos" parent="menu_agro_root" sequence="30"/>
+    <menuitem id="menu_agro_consumo_insumos" name="Consumo de Insumos" parent="menu_agro_consumo_root" action="action_consumo_insumo" sequence="10"/>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <!-- Acción para configurar los estados de los cultivos -->
+    <record id="action_configurar_estados" model="ir.actions.act_window">
+        <field name="name">Configurar Estados de Cultivos</field>
+        <field name="res_model">cultivo.state</field>  <!-- Este modelo debe existir -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú de Configuración -->
+    <menuitem id="menu_agro_configuracion_root" name="Configuración" parent="menu_agro_root" sequence="40"/>
+    
+    <!-- Menú para gestionar los estados de cultivos -->
+    <menuitem id="menu_agro_configuracion_estados" name="Estados de Cultivos" parent="menu_agro_configuracion_root" action="action_configurar_estados"/>
+</odoo>
