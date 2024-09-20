@@ -4,23 +4,17 @@
         <field name="model">cultivo.cultivo</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="stage_id"/>
+                <field name="stage_id"/>  <!-- Usando la nueva relación de etapas -->
+                <field name="campo_id"/>
+                <field name="fecha_siembra"/>
+                <field name="rendimiento_estimado"/>
+                
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_card">
-                            <field name="stage_id" widget="kanban_state_colour"/>
-                            <div>
-                                <strong><field name="cultivo_id"/></strong>
-                            </div>
-                            <div>
-                                <small>Campo: <field name="campo_id"/></small>
-                            </div>
-                            <div>
-                                <small>Fecha Siembra: <field name="fecha_siembra"/></small>
-                            </div>
-                            <div>
-                                <small>Rendimiento Estimado: <field name="rendimiento_estimado"/></small>
-                            </div>
+                        <div t-attf-class="oe_kanban_global_click">
+                            <strong><field name="campo_id"/></strong>
+                            <div>Fecha de Siembra: <field name="fecha_siembra"/></div>
+                            <div>Rendimiento Estimado: <field name="rendimiento_estimado"/></div>
                         </div>
                     </t>
                 </templates>

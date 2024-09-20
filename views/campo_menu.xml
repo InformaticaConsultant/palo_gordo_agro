@@ -22,7 +22,7 @@
     <record id="action_cultivos" model="ir.actions.act_window">
         <field name="name">Cultivos</field>
         <field name="res_model">cultivo.cultivo</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>  <!-- Agregar vista kanban -->
     </record>
 
     <!-- Menú principal de "Agro" -->
@@ -32,7 +32,7 @@
     <menuitem id="menu_agro_campo_root" name="Gestión de Campos" parent="menu_agro_root" sequence="10"/>
     <menuitem id="menu_agro_cultivo" name="Campos de Cultivo" parent="menu_agro_campo_root" action="action_campo_cultivo" sequence="10"/>
 
-    <!-- Submenú para gestionar los cultivos (Elimina duplicados) -->
+    <!-- Submenú para gestionar los cultivos -->
     <menuitem id="menu_agro_cultivo_root" name="Gestión de Cultivos" parent="menu_agro_root" sequence="20"/>
     <menuitem id="menu_agro_cultivos" name="Cultivos" parent="menu_agro_cultivo_root" action="action_cultivos" sequence="10"/>
 

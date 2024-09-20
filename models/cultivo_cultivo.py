@@ -7,14 +7,12 @@ class CultivoCultivo(models.Model):
 
     # Relación con el campo
     campo_id = fields.Many2one('cultivo.campo', string="Campo", required=True)
-    
-    # Información del cultivo
     cultivo_id = fields.Many2one('product.product', string="Tipo de Cultivo", required=True)
     fecha_siembra = fields.Date(string="Fecha de Siembra", required=True)
     fecha_estimada_cosecha = fields.Date(string="Fecha Estimada de Cosecha")
     
     # Estados dinámicos (relación con la tabla de estados configurables)
-    stage_id = fields.Many2one('cultivo.cultivo.state', string="Estado del Cultivo", default=lambda self: self.env.ref('palo_gordo_agro.state_nuevo').id, required=True)
+    stage_id = fields.Many2one('cultivo.cultivo.state', string="Etapa", required=True, default=lambda self: self.env['cultivo.cultivo.state'].search([], limit=1))
 
     # Rendimientos
     rendimiento_estimado = fields.Float(string="Rendimiento Estimado (ton/ha)")
@@ -41,7 +39,20 @@ class CultivoCultivo(models.Model):
                 record.stage_id = next_stage
             if record.stage_id.name == 'Cosechado':
                 record._calcular_rendimiento_real()
+                
+    def action_avanzar_etapa(self):
+        """Cambia a la siguiente etapa."""
+        current_stage = self.stage_id.sequence
+        next_stage = self.env['cultivo.cultivo.state'].search([('sequence', '>', current_stage)], limit=1)
+        if next_stage:
+            self.stage_id = next_stage.id
 
+    def action_retroceder_etapa(self):
+        """Retrocede a la etapa anterior."""
+        current_stage = self.stage_id.sequence
+        previous_stage = self.env['cultivo.cultivo.state'].search([('sequence', '<', current_stage)], limit=1)
+        if previous_stage:
+            self.stage_id = previous_stage.id
     def _calcular_rendimiento_real(self):
         """
         Cálculo del rendimiento real basado en datos de cosecha.

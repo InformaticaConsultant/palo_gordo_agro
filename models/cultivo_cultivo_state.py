@@ -1,10 +1,9 @@
 from odoo import models, fields
 
-class CultivoState(models.Model):
+class CultivoCultivoState(models.Model):
     _name = 'cultivo.cultivo.state'
-    _description = 'Estados Personalizados de Cultivos'
+    _description = 'Estados de Cultivos'
 
     name = fields.Char(string="Estado", required=True)
     description = fields.Text(string="Descripción")
-    sequence = fields.Integer(string="Secuencia", default=1)
 
